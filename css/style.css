@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+*{
+	scroll-behavior: smooth;
+}
+body{
+    font-family: Quicksand,sans-serif;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+header nav >.nav-wrapper{
+    padding: 0 5vw;
+}
+main {
+    flex: 1 0 auto;
+  }
+
+img.teamCrests{
+    height: 40vh;
+    object-fit: scale-down;
+    padding-top: 5vh;
+    
+}
+.card{
+    margin-bottom: 1em;
+}
+
+#competitions div>div.card-content{
+    height: 15vh;
+}
+.row#competitions{
+    width: 90%;
+}
+.card-content>p{
+    padding-bottom: 1em;
+}
+.card-content>ul{
+    padding-left: 3vw;
+}
+.card-content>ul li{
+    list-style-type: disc;
+}
+.card-action>a{
+    color: #1976d2!important;
+}
+table#aboutme {
+    border-collapse: unset;
+}
+table#aboutme> th,td{
+    padding: 5px 5px;
+}
+table#teamStats{
+    border-collapse: unset;
+}
+footer div>a{
+    color: #f5f5f5;
+}
+footer div>a:hover{
+    font-weight: bolder;
+}
+.footer-copyright{
+    padding: 5px;
+    text-align: center;
+}
+a:hover{
+    font-weight: bolder;
+}

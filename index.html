@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Liga Inggris</title>
+    <meta name="description" content="Liga Inggris"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1976d2"/>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/lazyload.css">
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/fontawesome-free/css/all.min.css">
+    <link href="css/materialize-icon.css" rel="stylesheet">
+    
+    <link rel="apple-touch-icon" sizes="72x72" href="./img/icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="./img/icon-96x96.png">
+    <link rel="apple-touch-icon" sizes="128x128" href="./img/icon-128x128.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="./img/icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./img/icon-152x152.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="./img/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="./img/icon-96x96.png">
+    <link rel="icon" type="image/png" sizes="384x384" href="./img/icon-384x384.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="./img/icon-512x512.png">
+    <meta name="msapplication-TileColor" content="#1976d2">
+    <meta name="msapplication-TileImage" content="./img/icon-144x144.png">
+    <meta name="theme-color" content="#1976d2">
+</head>
+<body>
+    <header>
+        <!-- navigation -->
+        <div class="navbar-fixed">
+            <nav class="blue darken-2" role="navigation">
+                <div class="nav-wrapper">
+                    <a href="#" class="brand-logo" id="logo-container">Liga Inggris</a>
+                    <a href="#" class="sidenav-trigger" data-target="nav-mobile">
+                        <i class="material-icons">view_headline</i>
+                    </a>
+                    
+                    <ul class="topnav right hide-on-med-and-down"></ul>
+                    
+                </div>
+            </nav>
+            
+        </div>
+        <ul class="sidenav" id="nav-mobile"></ul>
+        <!-- /navigation -->
+    </header>
+    <main>
+        <script src="js/jquery-3.5.1.min.js"></script>
+        <!--lazy loader-->
+        <div id="lazyLoader" class="lazyLoader">
+            <div class="lazyContainer">
+                <div class="lazyContent">
+                    <h3 class="frame-1">Hello</h3>
+                    <h3 class="frame-2">
+                        <span>I am</span>
+                        <span>Dely Achmad</span>
+                    </h3>
+                    <h3 class="frame-3">Here is my PWA App</h3>
+                    <h3 class="frame-4">Hope u like it :)</h3>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- content -->
+        <div class="container" id="body-content"></div>
+        <div class="fixed-action-btn" id="loadingData">
+            <div class="preloader-wrapper small active">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /content -->
+    </main>
+    <footer>
+        <section class="blue darken-2 footer-copyright">
+            <div class="container grey-text text-lighten-4">
+                Created by <a href="https://t.me/delyachmad">delyachmad</a>
+            </div>
+        </section>
+        
+    </footer>
+    
+    <script src="js/idb.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/moment-with-locales.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/helper.js"></script>
+    <script src="js/api.js"></script>
+    
+</body>
+<script>
+    // REGISTER SERVICE WORKER
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function() {
+            registerServiceWorker().then(registration=>{
+                console.log(registration);
+                //if(registration.)
+                requestPermission();
+            });
+            //requestPermission();
+        })
+    } else {
+    console.log("ServiceWorker belum didukung browser ini.");
+    }
+
+</script>
+</html>

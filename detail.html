@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Liga Inggris</title>
+    <meta name="description" content="Liga Inggris"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1976d2"/>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/fontawesome-free/css/all.min.css">
+    <link href="css/materialize-icon.css" rel="stylesheet">
+    
+    <link rel="apple-touch-icon" sizes="72x72" href="./img/icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="./img/icon-96x96.png">
+    <link rel="apple-touch-icon" sizes="128x128" href="./img/icon-128x128.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="./img/icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./img/icon-152x152.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="./img/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="./img/icon-96x96.png">
+    <link rel="icon" type="image/png" sizes="384x384" href="./img/icon-384x384.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="./img/icon-512x512.png">
+    <meta name="msapplication-TileColor" content="#1976d2">
+    <meta name="msapplication-TileImage" content="./img/icon-144x144.png">
+    <meta name="theme-color" content="#1976d2">
+</head>
+<body>
+    <header>
+        <!-- navigation -->
+        <div class="navbar-fixed">
+            <nav class="blue darken-2" role="navigation">
+                <div class="nav-wrapper">
+                    <a href="/index.html" class="brand-logo" id="logo-container">Liga Inggris</a>
+                    <a href="/index.html" class="sidenav-trigger" data-target="nav-mobile">
+                        <i class="material-icons">arrow_back</i>
+                    </a>
+                    
+                    <ul class="topnav right hide-on-med-and-down"></ul>
+                </div>
+            </nav>
+            
+        </div>
+        <ul class="sidenav" id="nav-mobile"></ul>
+        <!-- /navigation -->
+    </header>
+    <main>
+        <!-- content -->
+        <div class="container" id="body-content">
+
+        </div>
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large red waves-effect waves-block waves-light" id="btnFav">
+                <i class="large material-icons">favorite_border</i>
+            </a>
+        </div>
+        <!-- /content -->
+    </main>
+    <footer>
+        <section class="blue darken-2 footer-copyright">
+            <div class="container grey-text text-lighten-4">
+                Created by <a href="https://t.me/delyachmad">delyachmad</a>
+            </div>
+        </section>
+    </footer>
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/snarkdown.umd.js"></script>
+    <script src="js/idb.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/moment-with-locales.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/helper.js"></script>
+    <script src="js/api.js"></script>
+    
+</body>
+<script>
+    // REGISTER SERVICE WORKER
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function() {
+            registerServiceWorker().then(data=>{
+                requestPermission();
+            });
+            //requestPermission();
+        })
+    } else {
+    console.log("ServiceWorker belum didukung browser ini.");
+    }
+    //REQUEST API UNTUK PERTAMA KALI
+    document.addEventListener("DOMContentLoaded", ()=> {
+        const urlParams = new URLSearchParams(window.location.search);
+        const teamId = urlParams.get("team");
+        const btnFav = document.getElementById("btnFav");
+        const item = getDetail();
+        const btnFavMorph = () =>{
+            console.log('btnmorph inact');
+            
+            favoriteTeam(teamId).then(isFav=>{
+                
+                if(isFav){
+                    btnFav.childNodes[1].innerHTML = 'favorite';
+                }else{
+                    btnFav.childNodes[1].innerHTML = 'favorite_border';
+                }
+            });
+        }
+        btnFavMorph();
+        btnFav.onclick = ()=> {
+            item.then(detail=> {
+                if(btnFav.childNodes[1].innerHTML == 'favorite_border'){
+                    console.log('save',detail);
+                    DB.saveFavorite(detail);
+                    M.toast({html:"Tim favorit tersimpan"})
+                }else if(btnFav.childNodes[1].innerHTML == 'favorite'){
+                    console.log('delete',detail);
+                    DB.deleteFavorite(detail.id);
+                    M.toast({html:"Tim favorit terhapus"})
+                }
+                btnFavMorph();
+            });
+        };
+        
+    });
+</script>
+</html>
