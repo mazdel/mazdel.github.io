@@ -42,7 +42,6 @@ const urlsToCache =
     {url :"/js/moment-with-locales.js", revision : revision },
     {url :"/js/snarkdown.umd.js", revision : revision },
     
-    
     {url :"/img/icon.png", revision : revision },
     {url :"/img/icon-72x72.png", revision : revision },
     {url :"/img/icon-96x96.png", revision : revision },
@@ -52,6 +51,7 @@ const urlsToCache =
     {url :"/img/icon-192x192.png", revision : revision },
     {url :"/img/icon-384x384.png", revision : revision },
     {url :"/img/icon-512x512.png", revision : revision },
+    {url :"/img/maskable_icon.png", revision : revision },
     {url :"/img/me.jpg", revision : revision },
     {url :"/img/moonsleep.jpg", revision : revision },
     {url :"/img/foot-ball.jpg", revision : revision },
