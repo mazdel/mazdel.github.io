@@ -1,0 +1,1 @@
+# mazdel.github.io
