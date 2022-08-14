@@ -1,0 +1,79 @@
+
+<html><head></head><body><h1 id="telegram-gs">telegram-gs</h1>
+<hr />
+<p>Telegram API for Google App Script</p>
+<h2 id="installation">Installation</h2>
+<hr />
+<p>There are two options of installation we can use and they are...</p>
+<ol>
+<li>Add already existing library to your Google Apps Script project, </li>
+</ol>
+<p><code>Library ID : 1yjQjHBetnyA5N-6GaSo2paLt68N6-vZ1Bbug5Afnk77nJ32vsVJuGmKQ</code></p>
+<ol start="2">
+<li>Or we can copy scripts on this repository to our existing Google Apps Script project</li>
+</ol>
+<h2 id="bot-initialization">Bot Initialization</h2>
+<hr />
+<p>We also have two methods to initialize the bot as divided by how the bot can get message updates,</p>
+<h3 id="using-google-apps-script--gas--trigger">Using Google Apps Script (GAS) trigger</h3>
+<p>At first, we need to create a function which will be triggered by GAS periodically, as simply like this</p>
+<pre><code>const trigger = () =&gt; {
+  const botApiKey = '50123123123:AAGxxxxYYYYzzzzzzzWWWW';
+  const bot = new TelegramGS.bot(`${botApiKey}`);
+
+  bot.onCommand('start',async (data)=&gt;{
+    const message = `hello ${data.message.chat.first_name}`;
+    await bot.sendMessage(data.message.chat.id,message,'HTML');
+  });
+}</code></pre><p>next, we can add the <code>trigger()</code> function to GAS trigger service by accessing it at <code>GAS editor left menu -&gt; Triggers -&gt; Add Trigger</code>, set the timer to every minutes so we can get the response more soon.
+and then, the function will periodically check if there are any updates on telegram's <code>getUpdates</code> endpoint.</p>
+<h3 id="using-webhook">Using Webhook</h3>
+<p>Different from before, on this metod we gonna wait telegram to tell us any update they got and we will catch it by using the default <code>doPost()</code> function of GAS. fyi, it has a use to get any HTTP POST data to your web app. read it more <a href="https://developers.google.com/apps-script/guides/triggers?hl=en#dogete_and_doposte">here</a> and <a href="https://developers.google.com/apps-script/guides/web?hl=en#requirements_for_web_apps">here</a>. </p>
+<p>Simply, we put every functions call the Bot library within <code>doPost(e)</code> function and pass the <code>e</code> parameter as a variable of bot constructor</p>
+<pre><code>const doPost = (e) =&gt; {
+  const botApiKey = '50123123123:AAGxxxxYYYYzzzzzzzWWWW';
+  const bot = new TelegramGS.bot(`${botApiKey}`,"webhook",e);
+  bot.onCommand('start',async (data)=&gt;{
+    const message = `hello ${data.message.chat.first_name}`;
+    await bot.sendMessage(data.message.chat.id,message,'HTML');
+  });
+}</code></pre><p>and now we have to set our project web app url as webhook to the telegram by using <code>setWebhook</code> function. but before going into, we have to get our web app deployment url first and make sure our project can be accessed by everyone, read it at <a href="https://developers.google.com/apps-script/guides/web#deploy_a_script_as_a_web_app">Deploy a script as a web app</a>. </p>
+<pre><code>const setWebhook = () =&gt; {
+  const botApiKey = '50123123123:AAGxxxxYYYYzzzzzzzWWWW';
+  const bot = new TelegramGS.bot(`${botApiKey}`);
+  const webAppUrl = "https://script.google.com/macros/s/thisIsJustAnExample-useTheRealGeneratedUrlOnDeploymentMenu/exec"; //&lt;-- just an example
+  bot.setWebhook(webAppUrl);
+  const result = bot.webhookInfo();
+  console.log(result)
+}</code></pre><p>and run <code>setWebhook()</code> function within our GAS editor, it should return a JSON contain our webhook data</p>
+<h2 id="how-to">How-To</h2>
+<hr />
+<p>These example are assuming we already initialize the <code>bot</code> by using one of <a href="#bot-initialization">above</a> methods</p>
+<h4 id="send-message">Send Message</h4>
+<pre><code>const chatId = 123123 //&lt;--- receiver chat id
+const message = `hello folks`;
+
+bot.sendMessage(chatId,message,'HTML');</code></pre><h4 id="catch-a-bot-start-command-and-send-a-response">Catch a bot <code>start</code> command and send a response</h4>
+<pre><code>bot.onCommand('start',async (data)=&gt;{
+  const message = `hello ${data.message.chat.first_name},`;
+  await bot.sendMessage(data.message.chat.id,message,'HTML');
+});</code></pre><h4 id="send-an-inline-keyboard-markup-and-catch-the-data">Send an Inline Keyboard Markup and Catch the data</h4>
+<pre><code>bot.onCommand('start',async (data)=&gt;{
+  const message = `hello ${data.message.chat.first_name}, here is inline keyboard example`;
+  const additionalParams={
+    reply_markup:{
+      inline_keyboard:[
+        [{text:'inline key test 1',callback_data:'cb_test1'}],
+        [{text:'inline key test 2',callback_data:'cb_test2'}],
+      ],
+    }
+  }
+  await bot.sendMessage(data.message.chat.id,message,'HTML',additionalParams);
+});
+bot.onCallbackData("cb_test1",async (data)=&gt;{
+  await bot.sendMessage(data.callback_query.message.chat.id, 'you clicked "inline key test 1"', 'HTML');
+});
+bot.onCallbackData("cb_test2",async (data)=&gt;{
+  await bot.sendMessage(data.callback_query.message.chat.id, 'you clicked "inline key test 2"', 'HTML');
+});</code></pre><p>more info about <code>additionalParams</code> at <a href="https://core.telegram.org/bots/api#sendmessage">telegram api documentation</a></p>
+</body></html>
